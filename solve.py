@@ -28,6 +28,9 @@ def difference(matrix) -> bool:
 def elimination(matrix) -> bool:
     flag = False
     squares, horizontals, verticals = get_possibles(matrix)
+
+    sp, hp, vp = get_predictions(matrix)
+    used = set()
     for y in range(SIDE):
         for x in range(SIDE):
             if type(array := matrix[y][x]) == set:
@@ -66,3 +69,22 @@ def get_possibles(matrix):
                     horizontals[y][value] = horizontals[y].get(value, 0) + 1
                     verticals[x][value] = verticals[x].get(value, 0) + 1
     return squares, horizontals, verticals
+
+
+def get_predictions(matrix):
+    squares = tuple(tuple(list() for _ in range(SQUARES_ON_SIDE)) for _ in range(SQUARES_ON_SIDE))
+    horizontals = tuple(list() for _ in range(SIDE))
+    verticals = tuple(list() for _ in range(SIDE))
+    for y in range(SIDE):
+        for x in range(SIDE):
+            if type(array := matrix[y][x]) == set:
+                squares[y // 3][x // 3].append(array)
+                horizontals[y].append(array)
+                verticals[x].append(array)
+    return squares, horizontals, verticals
+
+
+def general_coords(x, y):
+    for i in range(SIDE):
+        yield x, i
+        yield i, y
