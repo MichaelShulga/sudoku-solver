@@ -4,7 +4,7 @@ import cairo
 from PIL import Image
 
 
-FONT = "JetBrains Mono Lightfdsgs"
+FONT = "JetBrains Mono Light"
 
 
 def display_sudoku(matrix, resolution):

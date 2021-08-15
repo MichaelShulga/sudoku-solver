@@ -28,9 +28,6 @@ def difference(matrix) -> bool:
 def elimination(matrix) -> bool:
     flag = False
     squares, horizontals, verticals = get_possibles(matrix)
-
-    sp, hp, vp = get_predictions(matrix)
-    used = set()
     for y in range(SIDE):
         for x in range(SIDE):
             if type(array := matrix[y][x]) == set:
@@ -41,6 +38,21 @@ def elimination(matrix) -> bool:
                         matrix[y][x] = value
                         flag = True
                         break
+    return flag
+
+
+def elimination2(matrix):
+    flag = False
+    sp, hp, vp = get_predictions(matrix)
+    for y in range(SIDE):
+        for x in range(SIDE):
+            if type(array := matrix[y][x]) == set:
+                if len(array) == sp[y // 3][x // 3].count(array):
+
+                for i, j in unique_filter(lambda: general_coords(x, y)):
+
+
+
     return flag
 
 
@@ -88,3 +100,12 @@ def general_coords(x, y):
     for i in range(SIDE):
         yield x, i
         yield i, y
+        yield i % 3 + x // 3, i // 3 + y // 3
+
+
+def unique_filter(generator):
+    used = set()
+    for i in generator():
+        if i not in used:
+            used.add(i)
+            yield i

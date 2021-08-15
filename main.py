@@ -9,7 +9,7 @@ def main():
 
     solve_sudoku(matrix)
 
-    k = 3 * 14
+    k = 3
     resolution = (210 * k, 210 * k)
     display_sudoku(matrix, resolution)
 
